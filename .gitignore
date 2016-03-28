@@ -43,6 +43,7 @@ m4/
 
 # Java class
 *.class
+/target
 
 # Accellio specific
 

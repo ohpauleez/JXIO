@@ -15,10 +15,10 @@ NATIVE_LIBS=libjxio.so libxio.so
 
 STRIP_COMMAND=touch #do not strip libraries from symbols
 
-ifndef DONT_STRIP 
+ifndef DONT_STRIP
 	STRIP_COMMAND=strip -s
 endif
- 
+
 all: $(TARGET)
 
 $(TARGET):$(SRC_JAVA_FILES)
@@ -35,6 +35,8 @@ $(TARGET):$(SRC_JAVA_FILES)
 	(echo "Implementation-Version-AccelIO: `cd src/accelio; git describe --long --tags --always --dirty; cd ../..`" >> manifest.txt)
 	(cd $(BIN_FOLDER); jar -cfm $(TARGET) ../manifest.txt org $(NATIVE_LIBS))
 
+.PHONY : clean
 clean:
+	rm -rf $(BIN_FOLDER)/* ./target
 	(cd src/c; make clean -s)
-	rm -rf $(BIN_FOLDER)/*
+
